@@ -25,3 +25,13 @@ Vamos realizar um passo especial que é expor a porta 80. No dockerfile isso pod
 Agora, alteramos o nosso diretório de trabalho para a pasta /app
 
 E passamos o comando de entrada ```python server.py```
+
+
+docker run -d --name database --net network_example -e MYSQL_ROOT_PASSWORD=movie123 database_bootcamp
+
+docker run -d --name webapp --net network_example -p 8080:80 webpp_bootcamp
+
+
+
+
+
