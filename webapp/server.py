@@ -1,14 +1,22 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy as db
+from sqlalchemy import text
 
 app = Flask(__name__)
 
 # Setup the connection to the database
-db = SQLAlchemy()
-db_uri = 'mysql://root:movie123@database:3306/movies'
-app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
+#db = SQLAlchemy()
+#db_uri = 'mysql://root:movie123@database:3306/movies'
+#app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#db.init_app(app)
+
+#engine = create_engine('mysql://root:movie123@database:3306/movies')
+#connection = engine.connect()
+
+engine = db.create_engine('mysql://root:movie123@database:3306/movies')
+
+conn = engine.connect()
 
 
 def get_movies():
@@ -17,9 +25,10 @@ def get_movies():
     """
     movies = []
 
-    for row in db.engine.execute("SELECT * FROM movies"):
-        movies.append({"name": row[0], "rating": row[1]})
-
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM movies"))
+        for row in result:
+            movies.append({"name": row[0], "rating": row[1]})
     return movies
 
 
