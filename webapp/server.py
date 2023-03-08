@@ -14,7 +14,7 @@ app = Flask(__name__)
 #engine = create_engine('mysql://root:movie123@database:3306/movies')
 #connection = engine.connect()
 
-engine = db.create_engine('mysql://root:movie123@database:3306/movies')
+engine = db.create_engine('mysql://root:movie123@bootcamp_database:3306/movies')
 
 conn = engine.connect()
 
